@@ -12,14 +12,28 @@ namespace Events
             string fileName = "bigimage.jpg";
 
             ImageDownloader myimageDownloader = new ImageDownloader();
+            
+            DownloadSync(myimageDownloader, remoteUri, fileName);
 
-            myimageDownloader.ImageStarted += MyimageDownloader_ImageStarted;
-            myimageDownloader.ImageCompleted += MyimageDownloader_ImageCompleted;
             
-            myimageDownloader.Download(remoteUri, fileName);
-            
+
             Console.WriteLine("Для выхода из программы нажмите любую клавишу");
             Console.ReadKey();
+
+        }
+
+        private static void DownloadSync(ImageDownloader myimageDownloader, string remoteUri, string fileName)
+        {
+            myimageDownloader.ImageStarted += MyimageDownloader_ImageStarted;
+            myimageDownloader.ImageCompleted += MyimageDownloader_ImageCompleted;
+
+            myimageDownloader.Download(remoteUri, fileName);
+
+
+            myimageDownloader.ImageStarted -= MyimageDownloader_ImageStarted;
+            myimageDownloader.ImageCompleted -= MyimageDownloader_ImageCompleted;
+
+            myimageDownloader.Download(remoteUri, fileName);
 
         }
 

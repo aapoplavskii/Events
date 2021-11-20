@@ -16,7 +16,7 @@ namespace Events
            
             var _webclient = new WebClient();
 
-            ImageStarted.Invoke("cкачивание началось");
+            ImageStarted?.Invoke("cкачивание началось");
 
             Console.WriteLine("Качаю \"{0}\" из \"{1}\" .......\n\n", fileName, remoteUri);
 
@@ -25,7 +25,7 @@ namespace Events
             Console.WriteLine("Успешно скачал \"{0}\" из \"{1}\"", fileName, remoteUri);
             Console.WriteLine("");
 
-            ImageCompleted.Invoke("cкачивание заверщено!");
+            ImageCompleted?.Invoke("cкачивание заверщено!");
 
         }
 
