@@ -13,7 +13,10 @@ namespace Events
             string fileName = "bigimage.jpg";
 
             ImageDownloader myimageDownloader = new ImageDownloader();
-            
+
+            Console.WriteLine("Начинаю синхронное скачивание!");
+            Console.WriteLine("");
+
             DownloadSync(myimageDownloader, remoteUri, fileName);
 
             Console.WriteLine("Начинаю асинхронное скачивание!");
