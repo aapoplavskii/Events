@@ -13,11 +13,26 @@ namespace Events
 
             ImageDownloader myimageDownloader = new ImageDownloader();
 
+            myimageDownloader.ImageStarted += MyimageDownloader_ImageStarted;
+            myimageDownloader.ImageCompleted += MyimageDownloader_ImageCompleted;
+            
             myimageDownloader.Download(remoteUri, fileName);
-
+            
             Console.WriteLine("Для выхода из программы нажмите любую клавишу");
             Console.ReadKey();
 
+        }
+
+        private static void MyimageDownloader_ImageCompleted(string status)
+        {
+            Console.WriteLine($"Статус загрузки - {status}");
+            Console.WriteLine("");
+        }
+
+        private static void MyimageDownloader_ImageStarted(string status)
+        {
+            Console.WriteLine($"Статус загрузки - {status}");
+            Console.WriteLine("");
         }
     }
 }
