@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using System.Threading.Tasks;
@@ -11,56 +10,53 @@ namespace WpfEvents
     {
         public event Action<string> ImageStarted;
         public event Action<string> ImageCompleted;
+
+        public event Action<string> ImageStartedasync;
+        public event Action<string> ImageCompletedasync;
+
         private BackgroundWorker backgroundWorker;
-              
+
+        public bool completeddownload { get; set; }
+
         public ImageDownloader()
         {
             backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += BackgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
-            backgroundWorker.WorkerReportsProgress = true;
-            backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
-        
-        }
 
-        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
-            var str = (string[])e.Result;
-
-            ImageCompleted?.Invoke($"Синхронное скачивание завершено! Успешно скачал \"{str[0]}\" из \"{str[1]}\"");
-
+            completeddownload = true;
         }
 
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            completeddownload = false;
+
             var _webclient = new WebClient();
-            
+
             var str = (string[])e.Argument;
-
-
-            ImageStarted?.Invoke($"Синхронное скачивание началось! Качаю \"{str[0]}\" из \"{str[1]}\" .......\n\n");
 
             _webclient.DownloadFile(str[0], str[1]);
 
-            string[] strresult = { str[0], str[1] };
-
-            e.Result = strresult;
 
         }
 
-        public void Download(string remoteUri, string fileName)
+        public async void Download(string remoteUri, string fileName)
         {
-            
-            string[] str = { remoteUri, fileName};
-                                  
+
+            string[] str = { remoteUri, fileName };
+
+            ImageStarted?.Invoke($"Синхронное скачивание началось! Качаю \"{remoteUri}\" из \"{fileName}\" .......\n\n");
+
             backgroundWorker.RunWorkerAsync(str);
-                       
+
+            await Task.Delay(5000);
+
+            ImageCompleted?.Invoke($"Синхронное скачивание завершено! Успешно скачал \"{remoteUri}\" из \"{fileName}\"");
+
         }
 
         public async Task DownloadAsync(string remoteUri, string fileName)
@@ -68,12 +64,12 @@ namespace WpfEvents
 
             var _webclient = new WebClient();
 
-            ImageStarted?.Invoke($"Асинхронное скачивание началось! Качаю \"{fileName}\" из \"{remoteUri}\" .......\n\n");
+            ImageStartedasync?.Invoke($"Асинхронное скачивание началось! Качаю \"{fileName}\" из \"{remoteUri}\" .......\n\n");
 
             await Task.Delay(10000);
             await Task.Run(() => _webclient.DownloadFile(remoteUri, fileName));
 
-            ImageCompleted?.Invoke($"Асинхронное скачивание завершено! Успешно скачал \"{fileName}\" из \"{remoteUri}\"");
+            ImageCompletedasync?.Invoke($"Асинхронное скачивание завершено! Успешно скачал \"{fileName}\" из \"{remoteUri}\"");
 
         }
 

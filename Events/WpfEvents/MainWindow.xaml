@@ -8,9 +8,14 @@
         mc:Ignorable="d"
         Title="Загрузка файлов" Height="450" Width="800">
     <Grid>
-        <Button Command="{Binding StartDownloadCommand}" Content="Начать скачивание" HorizontalAlignment="Center" Height="50" Width="250" Margin="0,0,0,250"/>
-        <Button Command="{Binding ViewStatusDownloadCommand}" Content="Показать текущее состояние скачивания" HorizontalAlignment="Center" Height="50" Width="250" Margin="0,0,0,100"/>
-        <TextBlock Text="{Binding Statusdownload}" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,-50" VerticalAlignment="Center"/>
+        <Button Command="{Binding StartDownloadCommand}" Content="Начать скачивание" HorizontalAlignment="Center" Height="50" Width="319" Margin="0 -300 0 0"/>
+        <Button Command="{Binding ViewStatusDownloadCommand}" Content="Показать текущее состояние скачивания" HorizontalAlignment="Center" Height="50" Width="320" Margin="0 -150 0 0"/>
+        <TextBlock Text="Состояние синхронной загрузки" Margin="40 -50 0 0" HorizontalAlignment="Left" TextAlignment="Center" Height="20" Width="200" Background="Coral"/>
+        <TextBlock Text="{Binding Statusdownload}" TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Center" Width="350" Height="100"  Margin="0 80 0 0"/>
+        <TextBlock Text="Состояние асинхронной загрузки" Margin="560 -50 0 0" HorizontalAlignment="Left" TextAlignment="Center" Height="20" Width="200" Background="Coral"/>
+        <TextBlock Text="{Binding Statusdownloadasync}" HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Width="350" Height="100" Margin="440 80 0 0 "/>
+        <TextBlock Text="Текущее состояние скачивания" Margin="300 220 0 0" HorizontalAlignment="Left" TextAlignment="Center" Height="20" Width="200" Background="Coral"/>
+        <TextBlock Text="{Binding CurrentStatusdownload}" HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Width="550" Height="70" Margin="110 350 0 0 "/>
 
     </Grid>
 </Window>
