@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfEvents"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Загрузка файлов" Height="450" Width="800">
     <Grid>
+        <Button Command="{Binding StartDownloadCommand}" Content="Начать скачивание" HorizontalAlignment="Center" Height="50" Width="250" Margin="0,0,0,250"/>
+        <Button Command="{Binding ViewStatusDownloadCommand}" Content="Показать текущее состояние скачивания" HorizontalAlignment="Center" Height="50" Width="250" Margin="0,0,0,100"/>
+        <TextBlock Text="{Binding Statusdownload}" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,-50" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Events
@@ -12,8 +9,8 @@ namespace Events
         public event Action<string> ImageStarted;
         public event Action<string> ImageCompleted;
         public void Download(string remoteUri, string fileName)
-        { 
-           
+        {
+
             var _webclient = new WebClient();
 
             ImageStarted?.Invoke("cкачивание началось");
@@ -29,23 +26,24 @@ namespace Events
 
         }
 
-        //public async Task DownloadAsync(string remoteUri, string fileName)
-        //{
+        public async Task DownloadAsync(string remoteUri, string fileName)
+        {
 
-        //    var _webclient = new WebClient();
+            var _webclient = new WebClient();
 
-        //    ImageStarted?.Invoke("асинхронное cкачивание началось");
+            ImageStarted?.Invoke("асинхронное cкачивание началось");
 
-        //    Console.WriteLine("Качаю \"{0}\" из \"{1}\" .......\n\n", fileName, remoteUri);
+            Console.WriteLine("Качаю \"{0}\" из \"{1}\" .......\n\n", fileName, remoteUri);
 
-        //    await Task.Run(()=> _webclient.DownloadFile(remoteUri, fileName));
+            await Task.Delay(10000);
+            await Task.Run(() => _webclient.DownloadFile(remoteUri, fileName));
 
-        //    Console.WriteLine("Успешно скачал \"{0}\" из \"{1}\"", fileName, remoteUri);
-        //    Console.WriteLine("");
+            Console.WriteLine("Успешно скачал \"{0}\" из \"{1}\"", fileName, remoteUri);
+            Console.WriteLine("");
 
-        //    ImageCompleted?.Invoke("асинхронное cкачивание завершено!");
+            ImageCompleted?.Invoke("асинхронное cкачивание завершено!");
 
-        //}
+        }
 
     }
 }

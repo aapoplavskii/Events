@@ -17,14 +17,24 @@ namespace Events
             Console.WriteLine("Начинаю синхронное скачивание!");
             Console.WriteLine("");
 
-            DownloadSync(myimageDownloader, remoteUri, fileName);
+            myimageDownloader.ImageStarted += MyimageDownloader_ImageStarted;
+            myimageDownloader.ImageCompleted += MyimageDownloader_ImageCompleted;
 
+            myimageDownloader.Download(remoteUri, fileName);
+
+            
             Console.WriteLine("Начинаю асинхронное скачивание!");
             Console.WriteLine("");
 
-            var taskloader = DownloadAsync(myimageDownloader, remoteUri, fileName);
+            var taskloader = myimageDownloader.DownloadAsync(remoteUri, fileName);
 
+            if (taskloader.IsCompleted)
+            {
+                myimageDownloader.ImageStarted -= MyimageDownloader_ImageStarted;
+                myimageDownloader.ImageCompleted -= MyimageDownloader_ImageCompleted;
             
+            }
+
 
             while (true)
             {
@@ -35,7 +45,7 @@ namespace Events
 
                 if (keyinfo.Key == ConsoleKey.A)
                 {
-                    break;   
+                    break;
                 }
                 else
                 {
@@ -53,34 +63,6 @@ namespace Events
             }
         }
 
-        private static void DownloadSync(ImageDownloader myimageDownloader, string remoteUri, string fileName)
-        {
-            myimageDownloader.ImageStarted += MyimageDownloader_ImageStarted;
-            myimageDownloader.ImageCompleted += MyimageDownloader_ImageCompleted;
-
-            myimageDownloader.Download(remoteUri, fileName);
-
-
-            myimageDownloader.ImageStarted -= MyimageDownloader_ImageStarted;
-            myimageDownloader.ImageCompleted -= MyimageDownloader_ImageCompleted;
-
-            //myimageDownloader.Download(remoteUri, fileName);  //для проверки отписки
-
-        }
-
-
-        private static async Task DownloadAsync(ImageDownloader myimageDownloader, string remoteUri, string fileName)
-        {
-            myimageDownloader.ImageStarted += MyimageDownloader_ImageStarted;
-            myimageDownloader.ImageCompleted += MyimageDownloader_ImageCompleted;
-
-            await Task.Delay(10000);
-            await Task.Run(()=> myimageDownloader.Download(remoteUri, fileName));
-            
-            myimageDownloader.ImageStarted -= MyimageDownloader_ImageStarted;
-            myimageDownloader.ImageCompleted -= MyimageDownloader_ImageCompleted;
-                       
-        }
         private static void MyimageDownloader_ImageCompleted(string status)
         {
             Console.WriteLine($"Статус загрузки - {status}");
