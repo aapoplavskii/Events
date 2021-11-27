@@ -13,7 +13,7 @@
         <TextBlock Text="Состояние синхронной загрузки" Margin="40 -50 0 0" HorizontalAlignment="Left" TextAlignment="Center" Height="20" Width="200" Background="Coral"/>
         <TextBlock Text="{Binding Statusdownload}" TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Center" Width="350" Height="100"  Margin="0 80 0 0"/>
         <TextBlock Text="Состояние асинхронной загрузки" Margin="560 -50 0 0" HorizontalAlignment="Left" TextAlignment="Center" Height="20" Width="200" Background="Coral"/>
-        <TextBlock Text="{Binding Statusdownloadasync}" HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Width="350" Height="100" Margin="440 80 0 0 "/>
+        <TextBlock Text="{Binding Statusdownloadasync}" HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Width="350" Height="100" Margin="430 80 0 0 "/>
         <TextBlock Text="Текущее состояние скачивания" Margin="300 220 0 0" HorizontalAlignment="Left" TextAlignment="Center" Height="20" Width="200" Background="Coral"/>
         <TextBlock Text="{Binding CurrentStatusdownload}" HorizontalAlignment="Left" TextWrapping="Wrap" TextAlignment="Center" Width="550" Height="70" Margin="110 350 0 0 "/>
 
